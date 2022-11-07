@@ -100,7 +100,7 @@ var displayWeather = function (weather, searchCity) {
 var get5Day = function (coord) {
  
   var apiKey = "8726874b1726da562c6f4abe29bcb4d4";
-  var apiURL = `https://api.openweathermap.org/geo/1.0/weather?lat=${ coord.lat }&lon=${ coord.lon }&limit=5&appid=8726874b1726da562c6f4abe29bcb4d4`;
+  var apiURL = `api.openweathermap.org/data/2.5/forecast?lat=${coord.lat}&lon=${coord.lon}&appid=${apiKey}`;
 
   fetch(apiURL).then(function (response) {
     response.json().then(function (data) {
