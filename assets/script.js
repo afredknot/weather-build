@@ -97,9 +97,11 @@ var displayWeather = function (weather, searchCity) {
   //append to container
   weatherContainerEl.appendChild(windSpeedEl);
   }
-var get5Day = function (city) {
+var get5Day = function (_city) {
+  var lat = { lat }
+  var lon = { lon }
   var apiKey = "8726874b1726da562c6f4abe29bcb4d4";
-  var apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&cnt=5&units=imperial&appid=8726874b1726da562c6f4abe29bcb4d4`;
+  var apiURL = `http://api.openweathermap.org/geo/1.0/forecast?lat=${ lat }&lon=${ lon }&limit=5&appid=8726874b1726da562c6f4abe29bcb4d4`;
 
   fetch(apiURL).then(function (response) {
     response.json().then(function (data) {
@@ -113,7 +115,7 @@ var display5Day = function (weather) {
   forecastTitle.textContent = "5-Day Forecast:";
 
   var forecast = weather.list;
-  for (var i = 0; i < days.lenght; i++) {
+  for (var i = 0; i < days.length; i++) {
     var dailyForecast = forecast[i];
 
     var forecastEl = document.createElement("div");
