@@ -27,7 +27,6 @@ var formSumbitHandler = function (event) {
   var city = cityInputEl.value.trim();
   if (city) {
     getCityWeather(city);
-    get5Day(city);
     places.unshift({ city });
     cityInputEl.value = "";
   } else {
@@ -48,6 +47,7 @@ var getCityWeather = function (city) {
   fetch(apiURL).then(function (response) {
     response.json().then(function (data) {
       displayWeather(data, city);
+      get5Day(data.coord)
     });
   });
 };
@@ -97,11 +97,10 @@ var displayWeather = function (weather, searchCity) {
   //append to container
   weatherContainerEl.appendChild(windSpeedEl);
   }
-var get5Day = function (_city) {
-  var lat = { lat }
-  var lon = { lon }
+var get5Day = function (coord) {
+ 
   var apiKey = "8726874b1726da562c6f4abe29bcb4d4";
-  var apiURL = `http://api.openweathermap.org/geo/1.0/forecast?lat=${ lat }&lon=${ lon }&limit=5&appid=8726874b1726da562c6f4abe29bcb4d4`;
+  var apiURL = `https://api.openweathermap.org/geo/1.0/weather?lat=${ coord.lat }&lon=${ coord.lon }&limit=5&appid=8726874b1726da562c6f4abe29bcb4d4`;
 
   fetch(apiURL).then(function (response) {
     response.json().then(function (data) {
@@ -178,7 +177,7 @@ var pastSearchHandler = function (event) {
   var city = event.target.getAttribute("data-city");
   if (city) {
     getCityWeather(city);
-    get5Day(city);
+  
   }
 };
 
