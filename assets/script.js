@@ -100,7 +100,7 @@ var displayWeather = function (weather, searchCity) {
 var get5Day = function (coord) {
  
   var apiKey = "8726874b1726da562c6f4abe29bcb4d4";
-  var apiURL = `api.openweathermap.org/data/2.5/forecast?lat=${coord.lat}&lon=${coord.lon}&appid=${apiKey}`;
+  var apiURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${coord.lat}&lon=${coord.lon}&units=imperial&cnt=5&appid=${apiKey}`;
 
   fetch(apiURL).then(function (response) {
     response.json().then(function (data) {
@@ -108,13 +108,13 @@ var get5Day = function (coord) {
     });
   });
 };
-
+// where the 5day gets rendered
 var display5Day = function (weather) {
   forecastContainerEl.textContent = "";
   forecastTitle.textContent = "5-Day Forecast:";
 
   var forecast = weather.list;
-  for (var i = 0; i < days.length; i++) {
+  for (var i = 0; i < forecast.length; i ++) {
     var dailyForecast = forecast[i];
 
     var forecastEl = document.createElement("div");
@@ -124,7 +124,7 @@ var display5Day = function (weather) {
 
     //create date element
     var forecastDate = document.createElement("h5");
-    forecastDate.textContent = currentDay
+    forecastDate.textContent = dayjs
       .unix(dailyForecast.dt)
       .format("MMM D, YYYY");
     forecastDate.classList = "card-header text-center";
