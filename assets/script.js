@@ -98,7 +98,8 @@ var get5Day = function (coord) {
     });
   });
 };
- 
+
+  
 // where the 5day gets rendered
 var display5Day = function (weather) {
   forecastContainerEl.textContent = "";
