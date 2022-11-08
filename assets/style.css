@@ -5,10 +5,11 @@
 
 body {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  background-color: lightslategrey;
 }
 
 #search-form, #history {
-  background-color: white;
+  background-color: rgb(152, 111, 111);
   color:black
 }
 
@@ -19,7 +20,7 @@ body {
 
 .jumbotron {
   text-align: center;
-  background-color: var(--primaryColor);
+  background-color: burlywood;
   color: var(--textColor);
 }
 

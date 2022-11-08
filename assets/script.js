@@ -3,24 +3,14 @@ var apiKey = "8726874b1726da562c6f4abe29bcb4d4"
 var currentDay = dayjs().format("ddd, MMM D, YYYY H:mm A")
 $('#currentDay').text('Today is ' + currentDay);
 
-  // let weather = {
-  //   "apiKey": "8726874b1726da562c6f4abe29bcb4d4",
-  //   fetchWeather: function (city) {
-  //   fetch("https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid="+ this.apiKey)
-  //   .then((response)=>response.json())
-  //   .then((data)=>this.displayWeather(data));
-  //   },
-
-
 var places = [];
-
-var cityFormEl = document.querySelector("#city-search-form");
+var cityFormEl = document.querySelector("#city-search");
 var cityInputEl = document.querySelector("#city");
-var weatherContainerEl = document.querySelector("#current-weather-container");
+var weatherContainerEl = document.querySelector("#current-weather");
 var citySearchInputEl = document.querySelector("#searched-city");
 var forecastTitle = document.querySelector("#forecast");
-var forecastContainerEl = document.querySelector("#fiveday-container");
-var pastSearchButtonEl = document.querySelector("#past-search-buttons");
+var forecastContainerEl = document.querySelector("#fiveday");
+var searchButtonEl = document.querySelector("#recent-search-buttons");
 
 var formSumbitHandler = function (event) {
   event.preventDefault();
@@ -75,7 +65,7 @@ var displayWeather = function (weather, searchCity) {
 
   //create a span element to hold temperature data
   var temperatureEl = document.createElement("span");
-  temperatureEl.textContent = "Temperature: " + weather.main.temp + " °F";
+  temperatureEl.textContent = "Temperature: " + weather.main.temp + "°F";
   temperatureEl.classList = "list-group-item";
 
   //create a span element to hold Humidity data
@@ -100,7 +90,7 @@ var displayWeather = function (weather, searchCity) {
 var get5Day = function (coord) {
  
   var apiKey = "8726874b1726da562c6f4abe29bcb4d4";
-  var apiURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${coord.lat}&lon=${coord.lon}&units=imperial&cnt=5&appid=${apiKey}`;
+  var apiURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${coord.lat}&lon=${coord.lon}&exclude=minutely,hourly&appid=${apiKey}&units=imperial&cnt=5`;
 
   fetch(apiURL).then(function (response) {
     response.json().then(function (data) {
@@ -108,13 +98,14 @@ var get5Day = function (coord) {
     });
   });
 };
+ 
 // where the 5day gets rendered
 var display5Day = function (weather) {
   forecastContainerEl.textContent = "";
   forecastTitle.textContent = "5-Day Forecast:";
 
   var forecast = weather.list;
-  for (var i = 0; i < forecast.length; i ++) {
+  for (var i = 0; i < forecast.length; i++) {
     var dailyForecast = forecast[i];
 
     var forecastEl = document.createElement("div");
@@ -135,7 +126,7 @@ var display5Day = function (weather) {
     weatherIcon.classList = "card-body text-center";
     weatherIcon.setAttribute(
       "src",
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&limit=5&units=imperial&appid=8726874b1726da562c6f4abe29bcb4d4`
+      `https://openweathermap.org/img/wn/${dailyForecast.weather[0].icon}@2x.png`
     );
 
     //append to forecast card
@@ -170,7 +161,7 @@ var pastSearch = function (pastSearch) {
   pastSearchEl.setAttribute("data-city", pastSearch);
   pastSearchEl.setAttribute("type", "submit");
 
-  pastSearchButtonEl.prepend(pastSearchEl);
+  searchButtonEl.prepend(pastSearchEl);
 };
 
 var pastSearchHandler = function (event) {
@@ -182,4 +173,4 @@ var pastSearchHandler = function (event) {
 };
 
 cityFormEl.addEventListener("submit", formSumbitHandler);
-pastSearchButtonEl.addEventListener("click", pastSearchHandler);
+searchButtonEl.addEventListener("click", pastSearchHandler);
